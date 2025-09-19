@@ -1,0 +1,11 @@
+[package]
+name = "axum-maintenance"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = "0.8.4"
+futures-util = "0.3.31"
+tokio = { version = "1.47.1", features = ["full"] }
+tower-layer = "0.3.3"
+tower-service = "0.3.3"
