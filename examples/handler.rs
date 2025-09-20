@@ -1,6 +1,21 @@
-use axum::{Router, routing::get};
+use axum::{
+    response::{Html, IntoResponse},
+    http::StatusCode,
+    routing::get,
+    Router,
+};
 use axum_maintenance::{MaintenanceState, MaintenanceLayer};
 use std::time::Duration;
+
+fn maintenance_page() -> impl IntoResponse {
+    let html = r#"
+    <h1>Maintenance</h1>
+    <p>This is a custom maintenance page.</p>
+    <p>Please try again later.</p>
+    "#;
+
+    (StatusCode::SERVICE_UNAVAILABLE, Html(html))
+}
 
 #[tokio::main]
 async fn main() {
@@ -14,7 +29,10 @@ async fn main() {
         toggle.enable().await;
     });
 
-    let layer = MaintenanceLayer::new(state);
+    // use our custom handler
+    let layer = MaintenanceLayer::with_response(state, || {
+        maintenance_page().into_response()
+    });
 
     let app = Router::new()
         .route("/", get(|| async { "Hello, world!" }))
