@@ -6,6 +6,8 @@ To install this crate, simply add:
 axum-maintenance = { git = "https://github.com/s0uthview/axum-maintenance.git" }
 ```
 to your `Cargo.toml` file. Once added, you should be good to go. This crate requires `axum`, `futures-util`, `tokio`, `tower-http`, and `tower-service`.
+
+You can also clone this repository and run `cargo run --example [example_name]` to run one of the example programs.
 ## Examples
 ### Basic
 ```rust
